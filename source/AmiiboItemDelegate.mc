@@ -3,7 +3,7 @@ import Toybox.System;
 import Toybox.Lang;
 
 //! Input delegate for a single Amiibo category's item list. Selecting an
-//! item shows its bundled metadata (UID / Amiibo ID extracted from the
+//! item shows its bundled metadata (Identifier / tag UID extracted from the
 //! unencrypted portion of the .bin dump); back returns to categories.
 class AmiiboItemDelegate extends WatchUi.Menu2InputDelegate {
 
@@ -18,8 +18,8 @@ class AmiiboItemDelegate extends WatchUi.Menu2InputDelegate {
 		var itemIndex = item.getId() as Number;
 		var entry = AmiiboData.getItems(_categoryIndex)[itemIndex] as Dictionary;
 		var message = (entry[:name] as String)
-			+ "\nUID: " + (entry[:uid] as String)
-			+ "\nID: " + (entry[:amiiboId] as String);
+			+ "\nIdentifier: " + (entry[:amiiboId] as String)
+			+ "\nTag UID: " + (entry[:uid] as String);
 		System.println(message);
 		WatchUi.pushView(new WatchUi.Confirmation(message), new AmiiboItemInfoDelegate(), WatchUi.SLIDE_UP);
 	}
