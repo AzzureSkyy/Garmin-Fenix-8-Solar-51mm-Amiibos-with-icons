@@ -4,7 +4,7 @@ import Toybox.WatchUi;
 //! Amiibo dataset. Category names stay in code; each category's item list
 //! lives in a JSON resource (resources/jsondata/catNN.json) and is only
 //! loaded into memory when that category is opened. Each item is
-//! [name, tagUid, amiiboId].
+//! [name, tagUid, amiiboId, iconIndex].
 module AmiiboData {
 
 	const CATEGORY_NAMES as Array<String> = [
@@ -44,7 +44,7 @@ module AmiiboData {
 		"Yu-Gi-Oh! Amiibo"
 	];
 
-	function getItems(categoryIndex as Number) as Array<Array<String> > {
+	function getItems(categoryIndex as Number) as Array<Array> {
 		var res = [
 			Rez.JsonData.Cat0,
 			Rez.JsonData.Cat1,
@@ -81,6 +81,6 @@ module AmiiboData {
 			Rez.JsonData.Cat32,
 			Rez.JsonData.Cat33
 		];
-		return WatchUi.loadResource(res[categoryIndex]) as Array<Array<String> >;
+		return WatchUi.loadResource(res[categoryIndex]) as Array<Array>;
 	}
 }
