@@ -3,23 +3,21 @@ import Toybox.System;
 import Toybox.Lang;
 
 //! Input delegate for a single Amiibo category's item list. Selecting an
-//! item shows its bundled metadata (Identifier / tag UID extracted from the
-//! unencrypted portion of the .bin dump); back returns to categories.
+//! item shows its Identifier / tag UID; back returns to categories.
 class AmiiboItemDelegate extends WatchUi.Menu2InputDelegate {
 
-	private var _categoryIndex as Number;
+	private var _items as Array<Array<String> >;
 
-	function initialize(categoryIndex as Number) {
+	function initialize(items as Array<Array<String> >) {
 		Menu2InputDelegate.initialize();
-		_categoryIndex = categoryIndex;
+		_items = items;
 	}
 
 	function onSelect(item) {
-		var itemIndex = item.getId() as Number;
-		var entry = AmiiboData.getItems(_categoryIndex)[itemIndex] as Dictionary;
-		var message = (entry[:name] as String)
-			+ "\nIdentifier: " + (entry[:amiiboId] as String)
-			+ "\nTag UID: " + (entry[:uid] as String);
+		var entry = _items[item.getId() as Number];
+		var message = entry[0]
+			+ "\nIdentifier: " + entry[2]
+			+ "\nTag UID: " + entry[1];
 		System.println(message);
 		WatchUi.pushView(new WatchUi.Confirmation(message), new AmiiboItemInfoDelegate(), WatchUi.SLIDE_UP);
 	}
@@ -37,7 +35,6 @@ class AmiiboItemInfoDelegate extends WatchUi.ConfirmationDelegate {
 	}
 
 	function onResponse(response) {
-		WatchUi.popView(WatchUi.SLIDE_DOWN);
 		return true;
 	}
 }

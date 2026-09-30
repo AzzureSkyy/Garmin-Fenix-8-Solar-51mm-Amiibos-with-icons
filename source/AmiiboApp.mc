@@ -9,9 +9,8 @@ class AmiiboApp extends Application.AppBase {
 	}
 
 	function getInitialView() {
-		var menu = new WatchUi.CustomMenu(60, Graphics.COLOR_WHITE, {});
-		menu.addItem(new AmiiboMenuItem());
-		return [ menu, new AmiiboMenuDelegate() ];
+		// Open straight into the Amiibo category list (no splash menu).
+		return [ new AmiiboCategoryMenu(), new AmiiboCategoryDelegate() ];
 	}
 }
 

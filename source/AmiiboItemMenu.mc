@@ -2,19 +2,14 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 
 //! Scrollable native Menu2 listing every Amiibo name within a single
-//! category, sourced from AmiiboData.getItems(categoryIndex). Icon
-//! rendering is currently disabled (caused a Symbol Not Found crash);
-//! items are text-only until the icon integration is revisited.
+//! category. Items are text-only.
 class AmiiboItemMenu extends WatchUi.Menu2 {
 
-	function initialize(categoryIndex as Number) {
-		var title = AmiiboData.CATEGORY_NAMES[categoryIndex];
-		Menu2.initialize({ :title => title });
+	function initialize(categoryIndex as Number, items as Array<Array<String> >) {
+		Menu2.initialize({ :title => AmiiboData.CATEGORY_NAMES[categoryIndex] });
 
-		var items = AmiiboData.getItems(categoryIndex);
 		for (var i = 0; i < items.size(); i += 1) {
-			var entry = items[i] as Dictionary;
-			addItem(new WatchUi.MenuItem(entry[:name] as String, null, i, {}));
+			addItem(new WatchUi.MenuItem(items[i][0], null, i, null));
 		}
 	}
 }

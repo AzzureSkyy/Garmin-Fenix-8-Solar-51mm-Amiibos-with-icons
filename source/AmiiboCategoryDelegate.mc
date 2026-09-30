@@ -2,7 +2,7 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 
 //! Input delegate for the top-level Amiibo category menu. Selecting a
-//! category pushes the scrollable item list for that category.
+//! category loads that category's items (once) and pushes its list.
 class AmiiboCategoryDelegate extends WatchUi.Menu2InputDelegate {
 
 	function initialize() {
@@ -11,7 +11,8 @@ class AmiiboCategoryDelegate extends WatchUi.Menu2InputDelegate {
 
 	function onSelect(item) {
 		var categoryIndex = item.getId() as Number;
-		WatchUi.pushView(new AmiiboItemMenu(categoryIndex), new AmiiboItemDelegate(categoryIndex), WatchUi.SLIDE_UP);
+		var items = AmiiboData.getItems(categoryIndex);
+		WatchUi.pushView(new AmiiboItemMenu(categoryIndex, items), new AmiiboItemDelegate(items), WatchUi.SLIDE_UP);
 	}
 
 	function onBack() {
