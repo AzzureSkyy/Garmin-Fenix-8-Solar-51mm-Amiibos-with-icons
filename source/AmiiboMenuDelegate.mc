@@ -9,6 +9,7 @@ class AmiiboMenuDelegate extends WatchUi.Menu2InputDelegate {
 
 	function onSelect(item) {
 		System.println("Amiibo selected");
+		WatchUi.pushView(new AmiiboQueryMenu(), new AmiiboQueryDelegate(), WatchUi.SLIDE_UP);
 	}
 
 	function onBack() {
