@@ -1,16 +1,14 @@
 import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Graphics;
+import Toybox.System;
 
 //! Amiibo icon lookup. Each item row in resources/jsondata/catNN.json
 //! carries an icon index into this table; bitmaps are loaded lazily when
-//! a row is drawn and a few recent ones are cached.
+//! a row is drawn.
 module AmiiboIcons {
 
 	var _ids as Array? = null;
-	var _cacheKeys as Array<Number> = [];
-	var _cacheBmps as Array = [];
-	const CACHE_SIZE = 8;
 
 	function resourceFor(index as Number) as ResourceId {
 		if (_ids == null) {
@@ -969,25 +967,18 @@ module AmiiboIcons {
 		return (_ids as Array)[index] as ResourceId;
 	}
 
+	//! Loads the bitmap fresh each time. On CIQ 4+ devices bitmaps live in the
+	//! system graphics pool, which may purge them, so holding references to
+	//! them between draws is unsafe.
 	function getBitmap(index as Number) as Graphics.BitmapType {
-		var pos = _cacheKeys.indexOf(index);
-		if (pos >= 0) {
-			return _cacheBmps[pos] as Graphics.BitmapType;
-		}
-		var bmp = WatchUi.loadResource(resourceFor(index)) as Graphics.BitmapType;
-		if (_cacheKeys.size() >= CACHE_SIZE) {
-			_cacheKeys = _cacheKeys.slice(1, null);
-			_cacheBmps = _cacheBmps.slice(1, null);
-		}
-		_cacheKeys.add(index);
-		_cacheBmps.add(bmp);
-		return bmp;
+		return WatchUi.loadResource(resourceFor(index)) as Graphics.BitmapType;
 	}
 }
 
 //! Drawable handed to IconMenuItem; loads its bitmap only when drawn.
 class AmiiboIconDrawable extends WatchUi.Drawable {
 
+	const ICON_SIZE = 32;
 	private var _index as Number;
 
 	function initialize(index as Number) {
@@ -996,16 +987,11 @@ class AmiiboIconDrawable extends WatchUi.Drawable {
 	}
 
 	function draw(dc as Graphics.Dc) as Void {
-		var bmp = AmiiboIcons.getBitmap(_index) as Graphics.BitmapType;
-		var w = dc.getWidth();
-		var h = dc.getHeight();
-		var bw = bmp.getWidth();
-		var bh = bmp.getHeight();
-		if ((bw > w || bh > h) && (dc has :drawScaledBitmap)) {
-			var s = (w < h ? w : h);
-			dc.drawScaledBitmap((w - s) / 2, (h - s) / 2, s, s, bmp);
-		} else {
-			dc.drawBitmap((w - bw) / 2, (h - bh) / 2, bmp);
+		try {
+			var bmp = AmiiboIcons.getBitmap(_index);
+			dc.drawBitmap((dc.getWidth() - ICON_SIZE) / 2, (dc.getHeight() - ICON_SIZE) / 2, bmp);
+		} catch (e instanceof Lang.Exception) {
+			System.println("Icon " + _index + " failed: " + e.getErrorMessage());
 		}
 	}
 }
