@@ -8,7 +8,9 @@ class AmiiboApp extends Application.AppBase {
 	}
 
 	function getInitialView() {
-		return [ new AmiiboMenuView(), new AmiiboMenuDelegate() ];
+		var menu = new WatchUi.Menu2({ :title => "Amiibo" });
+		menu.addItem(new AmiiboMenuItem());
+		return [ menu, new AmiiboMenuDelegate() ];
 	}
 }
 

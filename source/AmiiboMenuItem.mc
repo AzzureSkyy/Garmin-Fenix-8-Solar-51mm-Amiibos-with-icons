@@ -1,13 +1,13 @@
 import Toybox.Graphics;
 import Toybox.WatchUi;
 
-class AmiiboMenuView extends WatchUi.View {
+class AmiiboMenuItem extends WatchUi.CustomMenuItem {
 
 	function initialize() {
-		View.initialize();
+		CustomMenuItem.initialize("amiibo_item", {});
 	}
 
-	function onUpdate(dc) {
+	function draw(dc) {
 		var width = dc.getWidth();
 		var height = dc.getHeight();
 

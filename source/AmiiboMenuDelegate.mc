@@ -1,14 +1,13 @@
 import Toybox.System;
 import Toybox.WatchUi;
 
-class AmiiboMenuDelegate extends WatchUi.BehaviorDelegate {
+class AmiiboMenuDelegate extends WatchUi.Menu2InputDelegate {
 
 	function initialize() {
-		BehaviorDelegate.initialize();
+		Menu2InputDelegate.initialize();
 	}
 
-	function onSelect() {
+	function onSelect(item) {
 		System.println("Amiibo selected");
-		return true;
 	}
 }
