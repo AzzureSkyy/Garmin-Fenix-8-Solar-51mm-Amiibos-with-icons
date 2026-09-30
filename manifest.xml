@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<iq:manifest xmlns:iq="http://www.garmin.com/xml/connectiq" version="3">
+	<iq:application entry="AmiiboApp" id="6f1c2a7e-4b7d-4e3a-9a55-2f0d3c1b8a01" launcherIcon="@Drawables.LauncherIcon" name="@Strings.AppName" type="watch-app" minApiLevel="3.1.0">
+		<iq:products>
+			<iq:product id="fenix8solar51mm"/>
+		</iq:products>
+		<iq:permissions/>
+		<iq:languages>
+					<iq:language>eng</iq:language>
+				</iq:languages>
+		<iq:barrels/>
+	</iq:application>
+</iq:manifest>
