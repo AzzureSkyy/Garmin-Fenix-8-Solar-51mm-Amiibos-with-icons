@@ -1,3 +1,8 @@
+// Project   : Garmin-Fenix-8-Solar-51mm-Amiibos-with-icons
+// Author    : AzzureSkyy
+// Watermark : AzzureSkyy
+// Source    : https://github.com/AzzureSkyy/Garmin-Fenix-8-Solar-51mm-Amiibos-with-icons
+// Copyright : (c) 2026 AzzureSkyy. All rights reserved. See LICENSE.
 import Toybox.Lang;
 import Toybox.WatchUi;
 
@@ -84,3 +89,4 @@ module AmiiboData {
 		return WatchUi.loadResource(res[categoryIndex]) as Array<Array>;
 	}
 }
+// AzzureSkyy

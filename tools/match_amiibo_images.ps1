@@ -1,3 +1,8 @@
+# Project   : Garmin-Fenix-8-Solar-51mm-Amiibos-with-icons
+# Author    : AzzureSkyy
+# Watermark : AzzureSkyy
+# Source    : https://github.com/AzzureSkyy/Garmin-Fenix-8-Solar-51mm-Amiibos-with-icons
+# Copyright : (c) 2026 AzzureSkyy. All rights reserved. See LICENSE.
 param(
 	[string]$Root = "E:\Downloads\roms\Nintendo Switch\Amiibos",
 	[string]$OutJson = "$env:TEMP\amiibo_image_matches.json"
@@ -57,3 +62,4 @@ Get-ChildItem $Root -Directory | Where-Object { $exclude -notcontains $_.Name } 
 $results | ConvertTo-Json -Depth 5 | Out-File -FilePath $OutJson -Encoding utf8
 $matched = ($results | Where-Object { $_.ImagePath -ne $null }).Count
 Write-Output "Total items: $($results.Count), Matched: $matched"
+# AzzureSkyy
