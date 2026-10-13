@@ -22,6 +22,12 @@ class AmiiboCategoryDelegate extends WatchUi.Menu2InputDelegate {
 			return;
 		}
 		var items = AmiiboData.getItems(categoryIndex);
+		if (items.size() > AmiiboPaging.PAGE_SIZE) {
+			var total = items.size();
+			items = null;
+			WatchUi.pushView(new AmiiboPageMenu(categoryIndex, total), new AmiiboPageDelegate(categoryIndex), WatchUi.SLIDE_UP);
+			return;
+		}
 		WatchUi.pushView(new AmiiboItemMenu(categoryIndex, items), new AmiiboItemDelegate(items), WatchUi.SLIDE_UP);
 	}
 
