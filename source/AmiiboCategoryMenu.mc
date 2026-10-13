@@ -13,6 +13,8 @@ class AmiiboCategoryMenu extends WatchUi.Menu2 {
 	function initialize() {
 		Menu2.initialize({ :title => "Amiibo" });
 
+		addItem(new WatchUi.MenuItem("Scan", "NFC tag lookup", -1, {}));
+
 		var names = AmiiboData.CATEGORY_NAMES;
 		for (var i = 0; i < names.size(); i += 1) {
 			addItem(new WatchUi.MenuItem(names[i], null, i, {}));

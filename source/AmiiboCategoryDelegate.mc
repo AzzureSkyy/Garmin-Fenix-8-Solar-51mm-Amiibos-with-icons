@@ -16,6 +16,11 @@ class AmiiboCategoryDelegate extends WatchUi.Menu2InputDelegate {
 
 	function onSelect(item) {
 		var categoryIndex = item.getId() as Number;
+		if (categoryIndex == -1) {
+			var view = new ScanView();
+			WatchUi.pushView(view, new ScanDelegate(view), WatchUi.SLIDE_UP);
+			return;
+		}
 		var items = AmiiboData.getItems(categoryIndex);
 		WatchUi.pushView(new AmiiboItemMenu(categoryIndex, items), new AmiiboItemDelegate(items), WatchUi.SLIDE_UP);
 	}
